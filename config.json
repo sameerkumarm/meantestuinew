@@ -1,0 +1,8 @@
+{
+    "__disableTryCatch" : false,
+    "__disableLogging" : false,
+    "__disableConsoleErrorLog" : false,
+    "__errorLogURI": "http://localhost:8080/api/error-log",
+    "__eventTrackURI": "http://localhost:8080/api/event-log"
+
+}
