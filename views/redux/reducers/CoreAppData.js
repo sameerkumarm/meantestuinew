@@ -115,10 +115,22 @@ function initAppData(state, payload) {
 function initSearchView(state, payload) {
 	debugger
 	const {data} = payload;
+	let pageInfo = {};
 	var formData = {fieldDataMap:data};
 	var numberOfRows = Math.ceil(data.length/2);
 	let schemaObj = viewSchema(formData).getSchema();
-	return {...state, ...{searchPageInfo:schemaObj}};
+	pageInfo.searchFormData = schemaObj.formFieldData;
+	pageInfo.schemaData = schemaObj.schemaData;
+	pageInfo.initialFormValues = schemaObj.formFieldData;
+	pageInfo.rowGroup = (function(arr, size) {
+		var chunkData = [];
+		size = parseInt(size);
+		for(var idx = 0; idx < arr.length; idx += size) {
+			chunkData.push(arr.slice(idx, idx+size));
+		}
+		return chunkData;
+	})(data, 2) || [];
+	return {...state, ...{searchPageInfo:pageInfo}};
 }
 
 function updateSearchFormData(state, payload) {
