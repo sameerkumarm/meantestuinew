@@ -8,10 +8,9 @@ import bb from 'express-busboy';
 import fs from 'fs';
 //import routes
 //import routes from './routes';
-import {getSSI,getSSIs} from './';
+import routes from './service';
 //define our app using express
 const app = express();
-const router = express.Router();
 
 function readJSONFile(filename, callback) {
 	console.log("Reading file");
@@ -62,9 +61,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/admin', {
 
 //add Source Map Support
 SourceMapSupport.install();
-router.route('/fetchAll').put(getSSIs);
-router.route('/fetch/:id').get(getSSI);
-app.use('/api', router);
+
+app.use('/api', routes);
 app.use('/build',express.static(path.join(__dirname, '/build')));
 app.get('/', (req,res) => {
 	return res.sendFile(path.join(__dirname + '/index.html'));

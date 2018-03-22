@@ -3,7 +3,7 @@
 		"version": "0.0.1",
 		"private": true,
 		"scripts": {
-				"start": "npm start app_hooked.js"
+				"start": "node app_hooked.js"
 		},
 		"dependencies": {
 				"babel-preset-es2015-node6": "^0.4.0",

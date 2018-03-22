@@ -6,13 +6,11 @@ import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 import fs from 'fs';
-import addSSI from './';
 //import routes
-//import routes from './routes';
+import routes from './service';
 
 //define our app using express
 const app = express();
-const router = express.Router();
 
 function readJSONFile(filename, callback) {
 	console.log("Reading file");
@@ -53,8 +51,7 @@ bb.extend(app);
 app.use(logger('dev'));
 
 //set the port
-const port = process.env.PORT || 3001;
-
+const port = process.env.PORT || 3002;
 //connect to database
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1:27017/admin', {
@@ -63,8 +60,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/admin', {
 
 //add Source Map Support
 SourceMapSupport.install();
-router.route('/add').post(addSSI);
-app.use('/api', router);
+
+app.use('/api', routes);
 app.use('/build',express.static(path.join(__dirname, '/build')));
 app.get('/', (req,res) => {
 	return res.sendFile(path.join(__dirname + '/index.html'));
