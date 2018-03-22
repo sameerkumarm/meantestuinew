@@ -12,7 +12,7 @@ class Welcome extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {width:'85%'};
+		this.state = {width:'100%'};
 	}
 
 	componentDidMount() {
@@ -34,7 +34,7 @@ class Welcome extends Component {
 		const {menuData=[]} = this.state;
 		let menu = undefined;
 		return (
-				<div flex='flex' style={{height:'100%', display : 'flex'}}>
+				<div flex='flex' style={{height:'100%'}}>
 				{menu}
 				<div className="main-content" style={{paddingLeft:'20px'}}>
 				<Col className="spaced">

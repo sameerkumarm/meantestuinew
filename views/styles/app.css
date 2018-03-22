@@ -1,0 +1,27 @@
+div.modal-dialog {
+    width: 90%;
+}
+
+.val-error-msg {
+	color: red;
+}
+
+.demo-form-input {
+	box-sizing: border-box;
+	line-height: 2.5;
+	position: relative;
+	border-radius: 4px;
+	background-clip: border-box;
+	width: 50%;
+	border: #ccc 1px solid; 
+}
+
+select.demo-form-input {
+	height: 2.5em;
+}
+
+select.demo-form-input:invalid,
+select.demo-form-input option[value=""][selected='true'], 
+select.demo-form-input:first-child {
+  color: #999999;
+}

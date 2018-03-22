@@ -17,7 +17,7 @@ module.exports = {
         //the following 2 params exports the module as global variable
         libraryTarget: "var",
         library: "[name]",
-        publicPath: '/dist'
+        publicPath: '/build'
     },
     plugins: [
 	    new webpack.DefinePlugin({

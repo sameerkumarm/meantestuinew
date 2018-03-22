@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 var ssiSchema = new mongoose.Schema({
-	SSI: String,
+	Ssi: String,
 	AssetClass: { type: String, trim: true, enum:['BA','CD']},
 	Currency: { type: String, trim: true },
 	TransactionSubtype: { type: String, trim: true, enum:['OWNE','PAIR', 'REPU'] },

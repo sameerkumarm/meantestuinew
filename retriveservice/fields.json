@@ -1,0 +1,100 @@
+[
+	{
+		"fieldName": "Ssi" ,
+		"displayType": "text",
+		"fieldDesc": "SSI",
+		"maxLength": "15",
+		"readOnly": true,
+		"value": "1",
+		"required" :true,
+		"displayInSearch": true
+	},
+	{
+		"fieldName": "AssetClass",
+		"displayType": "select",
+		"fieldDesc": "Asset Class",
+		"maxLength": "20",
+		"fieldLoV": [{"paramValue":"BA", "paramDesc":"BA - Bankers Acceptance"},
+					{"paramValue":"CD", "paramDesc":"CD - Certificate of Deposit"} 
+					],
+		"readOnly": false,
+		"required" :true,
+		"displayInSearch": true
+	},
+	{
+		"fieldName": "Currency",
+		"displayType": "text",
+		"fieldDesc": "Currency",
+		"maxLength": "3",
+		"readOnly": false,
+		"required" :true,
+		"displayInSearch": true
+	},
+	{
+		"fieldName": "TransactionSubtype",
+		"displayType": "select",
+		"fieldDesc": "Transaction Subtype",
+		"maxLength": "20",
+		"fieldLoV": [{"paramValue":"OWNE","paramDesc":"OWNE"},
+					{"paramValue":"PAIR","paramDesc":"PAIR"},
+					{"paramValue":"REPU","paramDesc":"REPU"} 
+					],
+		"readOnly": false,
+		"required" :true,
+		"displayInSearch": true
+	},
+	{
+		"fieldName": "PlaceofSettlement",
+		"displayType": "text",
+		"fieldDesc": "Place of Settlement",
+		"maxLength": "40"
+	},
+	{
+		"fieldName": "BuyerSellerIDType",
+		"displayType": "select",
+		"fieldDesc": "Buyer Seller ID Type",
+		"maxLength": "20",
+		"fieldLoV": [{"paramValue":"BIC","paramDesc":"BIC"},
+					 {"paramValue":"UNKNOWN","paramDesc":"UNKNOWN"}
+					]
+	},
+	{
+		"fieldName": "BuyerSellerID",
+		"displayType": "text",
+		"fieldDesc": "Buyer Seller ID",
+		"maxLength": "20"
+	},
+	{
+		"fieldName": "BuyerSellerNameAndAddress",
+		"displayType": "textarea",
+		"fieldDesc": "Buyer Seller Name and Address",
+		"maxLength": "100"
+	},
+	{
+		"fieldName": "BuyerSellerAccount" ,
+		"displayType": "text",
+		"fieldDesc": "Buyer Seller Account",
+		"maxLength": "20"
+	},
+	{
+		"fieldName": "RecDelAgentIDType",
+		"displayType": "select",
+		"fieldDesc": "Rec  Del Agent ID Type",
+		"maxLength": "20",
+		"fieldLoV": [{"paramValue":"BIC","paramDesc":"BIC"},
+					 {"paramValue":"UNKNOWN","paramDesc":"UNKNOWN"}
+					]
+	},
+	{
+		"fieldName": "RecDelAgentID",
+		"displayType": "text",
+		"fieldDesc": "Rec  Del Agent ID",
+		"maxLength": "20"
+	},
+	{
+		"fieldName": "RecDelAgentNameAndAddress",
+		"displayType": "textarea",
+		"fieldDesc": "Rec  Del Agent Name and Address",
+		"maxLength": "100"
+	}
+]

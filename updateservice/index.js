@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 //import models
-import SSIModel from "../models/SSIModel";
+import SSIModel from "./models/SSIModel";
 
 
 export const updateSSI = (req,res) => {
-	SSIModel.findOneAndUpdate({ _id:req.body.id }, req.body, { new:true }, (err,ssi) => {
+	SSIModel.findOneAndUpdate({ _id:req.body._id }, req.body, { new:true }, (err,ssi) => {
 		if(err){
 			return res.json({'success':false,'message':'Some Error whiloe updating the ssi','error':err});
 		}

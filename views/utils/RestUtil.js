@@ -1,7 +1,5 @@
 
 import { FETCH_METHOD, POST_METHOD, GET_METHOD, FETCH_START, FETCH_END, FETCH_ERROR, NOTIFY_ERROR, NOTIFY_SUCCESS} from './Constants';
-import $ from 'jquery';
-
 
 let now = Date.now();
 
@@ -55,15 +53,10 @@ export function fetchJSON(url, initObj = {}) {
 	.then(res => {
 		return res.json()
 		.then(data => {
-			const { success, message, responseBody } = data;
-			if (success === undefined) {
+			if (data) {
 				return data;
 			}
-
-			if (success) {
-				return responseBody;
-
-			} else {
+			else {
 				return Promise.reject(message);
 			}
 		})
@@ -71,4 +64,51 @@ export function fetchJSON(url, initObj = {}) {
 			return Promise.reject(error);
 		});
 	});
+}
+
+export function postData(url, data, options) {
+	const postOpts = {
+			...{
+				body: JSON.stringify(data),
+				mode: 'cors',
+				redirect: 'follow',
+				headers : {
+					'content-type': 'application/json'
+				}
+			},
+			...options,
+			...{method:'POST'}
+		};
+	return fetch(url, postOpts);
+}
+
+export function putData(url, data, options) {
+	const putOpts = {
+			...{
+				body: JSON.stringify(data),
+				mode: 'cors',
+				redirect: 'follow',
+				headers : {
+					'content-type': 'application/json'
+				}
+			},
+			...options,
+			...{method:'PUT'}
+		};
+	return fetch(url, putOpts);
+}
+
+export function deleteData(url, data, options) {
+	const putOpts = {
+			...{
+				body: JSON.stringify(data),
+				mode: 'cors',
+				redirect: 'follow',
+				headers : {
+					'content-type': 'application/json'
+				}
+			},
+			...options,
+			...{method:'DELETE'}}
+	return fetch(url, putOpts);
 }

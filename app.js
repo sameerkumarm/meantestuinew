@@ -2,12 +2,10 @@
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
-import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 import fs from 'fs';
 //import routes
-import routes from './routes';
 
 //define our app using express
 const app = express();
@@ -54,16 +52,9 @@ app.use(logger('dev'));
 //set the port
 const port = process.env.PORT || 3001;
 
-/*//connect to database
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/admin', {
-	useMongoClient: true,
-});*/
-
 //add Source Map Support
 SourceMapSupport.install();
 
-app.use('/api', routes);
 app.use('/build',express.static(path.join(__dirname, '/build')));
 app.get('/', (req,res) => {
 	return res.sendFile(path.join(__dirname + '/index.html'));

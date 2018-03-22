@@ -12,17 +12,17 @@ export const formFieldTypes = {
 		  const { fieldData, formData} = props;
 		  const fieldReadOnly = fieldData.readOnly ;
 		  let fileUplLink = undefined;
-			if(!fieldData.readOnly){
+			/*if(!fieldData.readOnly){
 				fileUplLink = 
 						<span>
 							<FormControl {...props} type="file" label="Select Files"/>
 							<HelpBlock>(Maximum File size allowed is 20MB)</HelpBlock>
 						</span>
-			}
+			}*/
 			return (<div>
 				{fileUplLink}
 		  		<FormControl {...props} componentClass="textarea" placeholder={"Enter "+ fieldData.fieldDesc} 
-		  			rows="25" value={props.value} onChange={props.onChange}
+		  			rows="3" value={props.value || ''} onChange={props.onChange}
 		  			readOnly={fieldReadOnly}/>
 	
 			</div>);
@@ -51,7 +51,7 @@ export const formFieldTypes = {
   		//gtmValidator={{fieldData.dataType, false, false}}
   		return (
   				<FormControl {...props} type="text" value={props.value ? props.value:""} name={fieldData.fieldName} placeholder={"Enter "+ fieldData.fieldDesc} onChange={props.onChange} 
-  				readOnly = {fieldReadOnly} maxlength = {fieldData.maxLength} />
+  				readOnly = {fieldReadOnly} maxLength = {fieldData.maxLength} />
   		);
   	},
   	doubletextfield: (props) => {
@@ -61,13 +61,13 @@ export const formFieldTypes = {
   		if(fieldData.commaSepAmount) {
   			return (
   					<FormControl {...props} type="text" value={props.value ? props.value:""} name={fieldData.fieldName} placeholder={"Enter "+ fieldData.fieldDesc} onChange={props.onChange} 
-  					readOnly = {fieldReadOnly} maxlength = {fieldData.maxLength} />
+  					readOnly = {fieldReadOnly} maxLength = {fieldData.maxLength} />
   			);
   		}
   		else {
   			return (
   					<FormControl {...props} type="text" value={props.value ? props.value:""} name={fieldData.fieldName} placeholder={"Enter "+ fieldData.fieldDesc} onChange={props.onChange} 
-  					readOnly = {fieldReadOnly} maxlength = {fieldData.maxLength} format="currency"/>
+  					readOnly = {fieldReadOnly} maxLength = {fieldData.maxLength} format="currency"/>
   			);
   		}
   	},
@@ -80,7 +80,7 @@ export const formFieldTypes = {
   			return (
   					<InputGroup>
 			  			<FormControl {...props} type="text" value={props.value ? props.value:""} name={fieldData.fieldName} placeholder={"Select "+ fieldData.fieldDesc} onChange={props.onChange} 
-			  				readOnly = {fieldReadOnly} maxlength = {fieldData.maxLength} />
+			  				readOnly = {fieldReadOnly} maxLength = {fieldData.maxLength} />
 			  	        <InputGroup.Button>
 			  	          <Button><Glyphicon glyph="remove" /></Button>
 			  	        </InputGroup.Button>
@@ -151,7 +151,7 @@ export const viewSchema = function(formData) {
 					case 'text':
 				  		let defaultString = yup.string().default(fieldData.data ? fieldData.data : "");
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				defaultString = defaultString.required(fieldData.fieldDesc + ' is a required field');
 				  			}
 				  			defaultString = defaultString.max(fieldData.maxLength, fieldData.fieldDesc + ' is more than maximum length');
@@ -162,7 +162,7 @@ export const viewSchema = function(formData) {
 				  	case 'radio':
 				  		let radioString = yup.string().default(fieldData.selectedData ? fieldData.selectedData : "");
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				radioString = radioString.required(fieldData.fieldDesc + ' is a required field');
 				  			}
 				  		}
@@ -173,7 +173,7 @@ export const viewSchema = function(formData) {
 				  		const chkData = fieldData.selectedData ? fieldData.selectedData.split(',') : null;
 				  		let checkboxData = yup.array().of(yup.string()).default(chkData && chkData.length ? chkData : null);
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				checkboxData = checkboxData.required(fieldData.fieldDesc + ' is a required field');
 				  			}
 				  		}
@@ -184,7 +184,7 @@ export const viewSchema = function(formData) {
 				  	case 'number':
 				  		let numberVal = yup.number().default(fieldData.data ? fieldData.data : "");
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				numberVal = numberVal.required(fieldData.fieldDesc + ' is a required field');
 				  			}
 				  			numberVal = numberVal.max((Math.pow(10, fieldData.maxLength)-1), fieldData.fieldDesc + ' is more than maximum length');
@@ -198,7 +198,7 @@ export const viewSchema = function(formData) {
 				  			selectString = yup.string().default(fieldData.data ? fieldData.data : "");
 				  		}
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				selectString = selectString.required(fieldData.fieldDesc + ' is a required field');
 				  			}
 				  			selectString = selectString.max(fieldData.maxLength, fieldData.fieldDesc + ' is more than maximum length');
@@ -209,7 +209,7 @@ export const viewSchema = function(formData) {
 				  	case 'date':
 				  		let dateDefault = yup.date().default(fieldData.data ? fieldData.data : null);
 				  		if(mode){
-				  			if(fieldData.mandatory) {
+				  			if(fieldData.required) {
 				  				dateDefault = dateDefault.required(fieldData.fieldDesc + ' is a required field').nullable(false).transform(function(currentValue, originalValue){
 						  			if ( this.isType(originalValue) ) return originalValue;
 						  			if(originalValue == "") return null; 

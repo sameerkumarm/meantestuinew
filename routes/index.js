@@ -7,13 +7,10 @@ import {deleteSSI} from '../deleteservice';
 
 const router = express.Router();
 
-router.route('/')
-	.get(getSSIs)
-	.post(addSSI)
-	.put(updateSSI);
-
-router.route('/:id')
-	.get(getSSI)
-	.delete(deleteSSI);
+router.route('/fetchAll').put(getSSIs);
+router.route('/add').post(addSSI);
+router.route('/update').put(updateSSI);
+router.route('/fetch/:id').get(getSSI);
+router.route('/del/:id').delete(deleteSSI);
 
 export default router;

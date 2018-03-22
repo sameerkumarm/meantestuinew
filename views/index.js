@@ -1,3 +1,4 @@
+import './styles/styles.less';
 import React, { Component, PropTypes } from 'react';
 import {render} from 'react-dom';
 import { Provider } from 'react-redux';

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 //import models
-import SSIModel from "../models/SSIModel";
+import SSIModel from "./models/SSIModel";
 
 export const addSSI = (req,res) => {
 	console.log(req.body);

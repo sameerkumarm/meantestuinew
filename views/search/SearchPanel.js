@@ -1,23 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import { Breadcrumb, Modal, Button, Panel, Row, Glyphicon} from 'react-bootstrap';
 import FieldGroup from "../components/FieldGroup";
-import Form from 'react-formal';
 import {formFieldTypes} from '../utils/ViewUtils';
-
-Form.addInputTypes(formFieldTypes);
+import {Form} from 'react-form';
 
 class SearchPanel extends Component {
 
 
 	constructor(props) {
 		super(props);
-		this.state = {open:true}
+		this.state = {open:true, searchData:{}}
 	}
 	componentWillMount() {
 
 	}
 
-	title = ()=>{return <span onClick={ ()=> {this.setState({open: !this.state.open}); this.props.onResize(!this.state.open);}}><Glyphicon glyph={this.state.open?'minus-sign':'plus-sign'}/> Search </span>};
+	title = ()=>{return <span onClick={ ()=> {this.setState({open: !this.state.open}); this.props.onResize(!this.state.open);}}><Glyphicon glyph={this.state.open?'chevron-down':'chevron-right'}/> Search </span>};
 
 	getFieldData = (formData, schemeId)=> {
 		if(!formData) {
@@ -27,16 +25,22 @@ class SearchPanel extends Component {
 		const title = this.title();
 		return( 
 				<Panel collapsible={true} header={title || 'Search'} expanded={this.state.open}>
-				{
-					rowGroup.map((row, idx) => {
-						return (
-								<Row key={idx}>
-								{this.getFields(row, formData, schemeId)}
-								</Row>
-						);
-					})
-				}
-				{this.getButtons(formData)}
+				<Form onSubmit={submittedValues => this.onButtonClick(submittedValues)}>
+				{formApi => (
+					<form onSubmit={formApi.submitForm} id='searchForm'>
+					{
+						rowGroup.map((row, idx) => {
+							return (
+									<Row key={idx}>
+									{this.getFields(row, formData, schemeId)}
+									</Row>
+							);
+						})
+					}
+					{this.getButtons(formData)}
+					</form>
+					)}
+				</Form>
 				</Panel>
 		);
 
@@ -56,46 +60,29 @@ class SearchPanel extends Component {
 	getButtons = (formData)=> {
 		let buttons = [];
 		buttons.push(
-				<Form.Button name = "gtmTemplateSearch" key={buttons.length} onClick={this.onButtonClick.bind(null, 'Inquiry')}>
+				<button key={buttons.length} type='submit'>
 				<Glyphicon glyph='search'/>&nbsp; <span>Search</span>&nbsp;
-				</Form.Button>	  
-		);
-		if(formData.managerViewEnabled || formData.workItemViewEnabled){
-			buttons.push(
-					<Form.Button key={buttons.length} onClick={this.onButtonClick.bind(null, 'GetWork')}>
-					<Glyphicon glyph='open'/>&nbsp; <span>Get Work</span>&nbsp;
-					</Form.Button>	  
-			);
-		}
-		buttons.push(
-				<Form.Button name = "createTemplateButton" key={buttons.length} onClick={this.onButtonClick.bind(null, 'template')}>
-				<Glyphicon glyph='file'/>&nbsp; <span>Create Template</span>&nbsp;
-				</Form.Button>	  
-		);
-		buttons.push(
-				<Form.Button onClick={this.onButtonClick.bind(null, 'reset')} key={buttons.length}>
-				<Glyphicon glyph='repeat'/>&nbsp; <span>Reset</span>&nbsp;
-				</Form.Button>	  
+				</button>	  
 		);
 		return buttons;
 	}
 
-	onButtonClick = (name, e)=>{
-		this.props.onButtonClick(name, e);
-	}
-
-	onIconClick = (e)=> {
-		debugger
+	onButtonClick = (submittedValues)=>{
+		const keys = Object.keys(submittedValues);
+		let searchObj = {};
+		keys.map(key=>{
+			if(submittedValues[key])
+				searchObj[key] = submittedValues[key];
+		});
+		this.props.onButtonClick(searchObj);
 	}
 
 	render() {
 		const { props } = this;
 		const { searchPageInfo } = props;
-
+		const fields = this.getFieldData(searchPageInfo);
 		return (
-				<Form horizontal name="searchViewForm" schema={searchPageInfo.schemaData} value={props.searchPageInfo.searchFormData ? props.searchPageInfo.searchFormData : {}} onChange={this.handleFormChange}> 
-				{this.getFieldData(searchPageInfo)}
-				</Form>
+				<div>{fields}</div>
 		);
 
 	}

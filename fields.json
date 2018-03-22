@@ -1,12 +1,12 @@
 [
 	{
-		"fieldName": "SSI" ,
+		"fieldName": "Ssi" ,
 		"displayType": "text",
 		"fieldDesc": "SSI",
 		"maxLength": "15",
 		"readOnly": true,
 		"value": "1",
-		"required" :false,
+		"required" :true,
 		"displayInSearch": true
 	},
 	{
@@ -14,11 +14,11 @@
 		"displayType": "select",
 		"fieldDesc": "Asset Class",
 		"maxLength": "20",
-		"fieldLoV": [{"paramValue":"BA", "paramDesc":"BA – Bankers Acceptance"},
-					{"paramValue":"CD", "paramDesc":"CD – CD – certificate of Deposit"} 
+		"fieldLoV": [{"paramValue":"BA", "paramDesc":"BA - Bankers Acceptance"},
+					{"paramValue":"CD", "paramDesc":"CD - Certificate of Deposit"} 
 					],
 		"readOnly": false,
-		"required" :false,
+		"required" :true,
 		"displayInSearch": true
 	},
 	{
@@ -27,6 +27,7 @@
 		"fieldDesc": "Currency",
 		"maxLength": "3",
 		"readOnly": false,
+		"required" :true,
 		"displayInSearch": true
 	},
 	{
@@ -38,7 +39,9 @@
 					{"paramValue":"PAIR","paramDesc":"PAIR"},
 					{"paramValue":"REPU","paramDesc":"REPU"} 
 					],
-		"readOnly": false
+		"readOnly": false,
+		"required" :true,
+		"displayInSearch": true
 	},
 	{
 		"fieldName": "PlaceofSettlement",
